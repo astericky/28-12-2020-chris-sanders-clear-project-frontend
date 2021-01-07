@@ -1,11 +1,10 @@
 import React from 'react'
 import Container from '../components/container'
-import Content from '../components/content'
 
-export default function Home() {
+export default function ErrorPage() {
   return (
     <Container>
-      <Content />
+      <h1>404 Page Does Not Exist</h1>
     </Container>
   )
 }
