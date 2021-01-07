@@ -1,54 +1,10 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import styled from 'styled-components'
-import { add } from '../store/actions'
+import OrganizationItem from './ogranizationItem'
+
 
 const borderColor = '#efefef'
 const clearBlue = '#412dff'
-
-const ContentContainerStyled = styled.div`
-  display: grid;
-  grid-gap: 32px;
-  grid-template-columns: 300px 400px;
-  justify-content: center;
-  padding: 24px 16px 48px;
-  background: #e5ecfe;
-
-  h1 {
-    margin: 0 ;
-  }
-
-  ul {
-    list-style: none;
-    border: 1px solid ${borderColor};
-    margin: 0;
-    background: #fff;
-  }
-
-  li {
-    padding: 16px;
-    border-bottom: 1px solid ${borderColor};
-    margin: 0;
-
-    &::last-child {
-      border: 0;
-    }
-  }
-`
-
-const FormStyled = styled.div`
-  display: grid;
-  grid-gap: 16px;
-  align-content: start;
-  max-width: 300px;
-
-  button {
-    padding: 12px;
-    border: 0;
-    background: ${clearBlue};
-    color: #fff;
-  }
-`
 
 const ContentStyled = styled.div`
   display: grid;
@@ -71,55 +27,30 @@ const InputContainerStyle = styled.div`
       outline: none;
     }
   }
-
 `
 
-function Content() {
+export default function Content({ organizations }) {
   return (
-    <ContentContainerStyled>
-      <FormStyled>
-        <h1>Add Organization</h1>
-        <InputContainerStyle>
-          <div>
-            Company Name
-            <input type="text" name="name" />
-          </div>
-          <div>
-            Start Date
-            <input type="text" name="startDate" />
-          </div>
-          <div>
-            Number Of Employees
-            <input type="text" name="numberOfEmployees" />
-          </div>
-          <div>
-            Type
-            <input type="text" name="type" />
-          </div>
-        </InputContainerStyle>
-        <button>Add Organization</button>
-      </FormStyled>
-      <ContentStyled>
+    <ContentStyled>
         <h1>Organization Search</h1>
         <InputContainerStyle>
           <input type="search" name="search" />
         </InputContainerStyle>
-        <ul className="results">
-          <li>No Results</li>
-          <li>No Results</li>
-        </ul>
+        { organizations.length === 0
+          && (
+            <div className="no-results">No Results</div>
+          )
+        }
+
+        { organizations.length > 0
+          && (
+            <ul className="results">
+              { organizations.map(org => (
+                <OrganizationItem org={org} key={org._id} />
+              ))}
+            </ul>
+          )
+        }
       </ContentStyled>
-      
-    </ContentContainerStyled>
   )
 }
-
-const mapStateToProps = ({ organizations }) => ({
-  organizations,
-})
-
-const mapDispatchToProps = dispatch => ({
-  add: dispatch(add()),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Content)
