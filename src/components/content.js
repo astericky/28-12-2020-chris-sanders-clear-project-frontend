@@ -78,7 +78,7 @@ function Content() {
   return (
     <ContentContainerStyled>
       <FormStyled>
-        <h1>Add Company</h1>
+        <h1>Add Organization</h1>
         <InputContainerStyle>
           <div>
             Company Name
@@ -97,7 +97,7 @@ function Content() {
             <input type="text" name="type" />
           </div>
         </InputContainerStyle>
-        <button>Add Company</button>
+        <button>Add Organization</button>
       </FormStyled>
       <ContentStyled>
         <h1>Organization Search</h1>
