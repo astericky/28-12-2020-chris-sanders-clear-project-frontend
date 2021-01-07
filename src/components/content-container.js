@@ -92,17 +92,17 @@ function ContentContainer(props) {
   }
 
   const fetchAllOrganizations = useCallback(async () => {
-    await axios.get('https://cors-anywhere.herokuapp.com/https://polar-falls-51090.herokuapp.com/organizations', {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-      }
-    })
-      .then((response) => {
-        setOrganizations(response.data)
+    try {
+      let { data } = await axios.get('https://cors-anywhere.herokuapp.com/https://polar-falls-51090.herokuapp.com/organizations', {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        }
       })
-      .catch((error) => {
-        console.log(error)
-      })
+
+      setOrganizations(data)
+    } catch (error) {
+      console.log(error)
+    }
   }, [])
 
   useEffect(() => {
